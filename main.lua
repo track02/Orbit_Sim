@@ -12,7 +12,7 @@ function love.load()
   math.randomseed(os.time())
 	love.window.setMode(1024,800, {vsync=true})
   universe_manager = _um.new()
-  universe_manager.create_planets(1)
+  universe_manager.create_planets(10)
 
 end
 

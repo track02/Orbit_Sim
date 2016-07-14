@@ -5,12 +5,12 @@ local _vecops = require('vector_ops')
 
     local self = {}
 
-    --local position = {x = math.random(0,800), y = math.random(0,1000)}
-    local position = {x = 500, y = 500}
+    local position = {x = math.random(0,800), y = math.random(0,1000)}
+    --local position = {x = 500, y = 500}
     local radius = math.random(5, 15)
 
     local orbit_point = {x = 500, y = 400}
-    local orbit_angle = 0.01
+    local orbit_angle = math.random(0, (2 * math.pi))
     local orbit_velocity = {x = 0, y = 0}    
     local orbit_radius = _vecops.distance(orbit_point, position)
     local orbit_position = {x = 0, y = 0}
