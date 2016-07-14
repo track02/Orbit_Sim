@@ -20,6 +20,14 @@ function universe_manager.new()
           planets[i].draw()
         end
     end
+    
+    function self.update_planets()
+    
+        for i = 1, #planets, 1 do
+          planets[i].update()
+        end
+    
+    end
 
     return self
 

@@ -1,19 +1,49 @@
 local planet = {}
+local _vecops = require('vector_ops')
 
 
-    function planet.new()
+  function planet.new()
 
-	math.randomseed(os.time())
-	
-	local self = {}
+    local self = {}
 
-	local position = {x = math.random(0,100), y = math.random(0,100)}
-	local radius = math.random(5, 15)
+    local position = {x = math.random(0,800), y = math.random(0,1000)}
+    local radius = math.random(5, 15)
+
+
+    local orbit_point = {x = 400, y = 500}
+    local orbit_angle = 0
+    local orbit_velocity = {x = 0, y = 0}
 
     function self.draw()
-        love.graphics.circle("line", position.x, position.y, radius, 5)	
+      love.graphics.circle("line", position.x, position.y, radius, 5)	
+    end
+    
+    local function self.update_orbit()
+    
+      local radius = math.sqrt(math.abs(position.x - orbit_point.x)
+      			       math.abs(position.y - orbit_point.y))
+    
+      if (angle + 0.01 > (2 * math.pi)) then
+        angle = 0
+      else
+        angle = angle + 0.01
+      end
+      
+      
+      orbit_velocity.x = radius * math.cos(angle) + orbit_point.x
+      orbit_velocity.y = radius * math.sin(angle) + orbit_point.y
+    
     end
 
+    function self.update()
+        self.update_orbit()
+	position = _vecops.add(position, orbit_velocity)
+
+	
     end
+
+    return self
+
+  end
 
 return planet
