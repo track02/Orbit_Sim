@@ -1,0 +1,19 @@
+local planet = {}
+
+
+    function planet.new()
+
+	math.randomseed(os.time())
+	
+	local self = {}
+
+	local position = {x = math.random(0,100), y = math.random(0,100)}
+	local radius = math.random(5, 15)
+
+    function self.draw()
+        love.graphics.circle("line", position.x, position.y, radius, 5)	
+    end
+
+    end
+
+return planet
