@@ -14,41 +14,37 @@ local _vecops = require('vector_ops')
     local orbit_velocity = {x = 0, y = 0}    
     local orbit_radius = _vecops.distance(orbit_point, position)
     local orbit_position = {x = 0, y = 0}
-    local orbit_speed = 0.5
+    local orbit_speed = 0.01 --Speed of orbit in radians
+      
 
     function self.draw()
       love.graphics.circle("line", position.x, position.y, radius, 5)
-      love.graphics.print(orbit_velocity.x,10, 10)
-      love.graphics.print(orbit_velocity.y, 10, 20)
-      love.graphics.print(orbit_angle, 10, 30)
-      love.graphics.print(orbit_radius, 10, 40)
-      love.graphics.print(position, 10, 50)
       love.graphics.circle("fill", orbit_point.x, orbit_point.y, 5, 10)
+      
     end
     
     function self.update_orbit()
           
       --Increment orbit angle by 0.01 (working in radians), reset back to 0 when full orbit is made
-      if (orbit_angle + 0.01 > (2 * math.pi)) then
+      if (orbit_angle + orbit_speed > (2 * math.pi)) then
         orbit_angle = 0.0
       else
-        orbit_angle = orbit_angle + 0.01
+        orbit_angle = orbit_angle + orbit_speed
       end
       
       --Using the angle calculate the next position to move to in the planet orbit
       orbit_position.x = orbit_radius * math.cos(orbit_angle) + orbit_point.x
       orbit_position.y = orbit_radius * math.sin(orbit_angle) + orbit_point.y
       
-      --Normalise this into a vector and multiply by speed to obtain velocity
+      --Convert this into a vector
       orbit_velocity = _vecops.subtract(orbit_position, position)
-      
       
           
     end
 
     function self.update()
         self.update_orbit()
-        position = orbit_position
+        position = _vecops.add(orbit_velocity, position)
     end
 
     return self
