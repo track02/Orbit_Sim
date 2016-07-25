@@ -15,10 +15,12 @@ local _vecops = require('vector_ops')
     function self.draw()
       love.graphics.circle("fill", orbit_point.x, orbit_point.y, 5, 10)	
       love.graphics.line(orbit_point.x, orbit_point.y, new_position.x, new_position.y)
-      love.graphics.print(_vecops.distance(orbit_point, new_position),10, 10)
     end
 	
-    function self.update_orbit(current_position)
+    function self.update_orbit(current_position, new_orbit_point)
+	
+        --Update orbit_point
+        orbit_point = new_orbit_point
 	
         --Determine radius from current position to orbit_point
         local orbit_radius = _vecops.distance(orbit_point, current_position)

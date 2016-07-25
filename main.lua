@@ -1,4 +1,4 @@
-local _um = require('universe_manager')
+local _u = require('universe')
 
 function love.conf(t)
 
@@ -11,13 +11,13 @@ end
 function love.load()
   math.randomseed(os.time())
 	love.window.setMode(1024,800, {vsync=true})
-  universe_manager = _um.new()
-  universe_manager.create_planets(1)
+  	universe = _u.new()
+	universe.build()
 
 end
 
 function love.update(dt)
-    universe_manager.update_planets()
+    universe.update()
 end
 
 
@@ -31,6 +31,6 @@ function love.mousemoved(x,y,dx,dy)
 end
 
 function love.draw()
-  universe_manager.draw_planets()
+  universe.draw()
 end
 
