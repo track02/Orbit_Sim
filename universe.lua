@@ -9,7 +9,7 @@ function universe.new()
 
     local self = {}
     local galaxies = {}
-    local center = {x = 512, y = 400} --Center, galaxy rotation point
+    local center = {x = 200, y = 200} --Center, galaxy rotation point
 
 	--Build values
 	local no_galaxies = 1

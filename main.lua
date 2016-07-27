@@ -2,15 +2,15 @@ local _u = require('universe')
 
 function love.conf(t)
 
-	t.window.width = 1024
-	t.window.height = 800
+	t.window.width = 400
+	t.window.height = 400
 	t.console = true
 
 end
 
 function love.load()
   math.randomseed(os.time())
-	love.window.setMode(1024,800, {vsync=true})
+	love.window.setMode(400,400, {vsync=true})
   	universe = _u.new()
 	universe.build()
 

@@ -6,10 +6,10 @@ local _planet = require('planet')
   function solar_system.new(galaxy_center) --Galaxy center - used for placement / orbit setup
 
     local self = {}
-    local position = {x = galaxy_center.x + 1, y = galaxy_center.y + 1}
+    local position = {x = galaxy_center.x + 25, y = galaxy_center.y + 25}
     local speed = 0.001
-    local radius = 50   	
-    local  orbitmanager =  _orbitmanager.new(galaxy_center)
+    local radius = 25   	
+    local  orbitmanager =  _orbitmanager.new(galaxy_center, speed)
 	
 	--Setup planets systems here--
 	local planets = {}
@@ -21,9 +21,10 @@ local _planet = require('planet')
 	  
 
     function self.draw()
-    love.graphics.setColor(255,0,0)
+		love.graphics.setColor(255,255,255)
+		love.graphics.print(string.format("System: %i,%i", math.floor(position.x), math.floor(position.y)), 0,20)
+		love.graphics.setColor(255,0,0)
 		orbitmanager.draw()
-		love.graphics.print(position, 10, 100)
 		love.graphics.circle("line", position.x, position.y, radius, 5)
 		
 		--Draw solar systems here--
@@ -33,11 +34,12 @@ local _planet = require('planet')
 
     end
     
-    function self.update(galaxy_orbit_vector, new_galaxy_position)
+    function self.update(galaxy_orbit_vector, galaxy_position)
 	
-		local orbit_vector = orbitmanager.update_orbit(position, new_galaxy_position)
-		position = _vecops.add(orbit_vector, position)
 		position = _vecops.add(galaxy_orbit_vector, position)
+		local orbit_vector = orbitmanager.update_orbit(position, galaxy_position)
+		position = _vecops.add(orbit_vector, position)
+		
 		
 		--Update planets here--
 		for i = 1,#planets,1 do
