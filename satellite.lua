@@ -2,13 +2,13 @@ local satellite = {}
 local _vecops = require('vector_ops')
 local _orbitmanager = require('orbit_manager')
 
-  function satellite.new(planet_center) --Satellites orbit a planet
+  function satellite.new(planet_center, orbit_sector) --Satellites orbit a planet
 
     local self = {}
     local position = {x = planet_center.x + 5, y = planet_center.x + 5}
     local speed = 0.05
     local radius = 5   	
-    local orbitmanager =  _orbitmanager.new(planet_center, speed)
+    local orbitmanager =  _orbitmanager.new(radius, planet_center, speed, orbit_sector)
 	
 
     function self.draw()

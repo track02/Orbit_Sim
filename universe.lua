@@ -9,22 +9,27 @@ function universe.new()
 
     local self = {}
     local galaxies = {}
-    local center = {x = 200, y = 200} --Center, galaxy rotation point
+    local position = {x = 200, y = 200} --Center, galaxy rotation point
+	
+	local radius = 100
 
 	--Build values
-	local no_galaxies = 1
+	local no_galaxies = 2
+	local orbit_sectors = {0,1,2,3,4,5,6,7}
 	
 	
     function self.build()
     	
       for i = 1, no_galaxies, 1 do
-        table.insert(galaxies, _galaxy.new(center))		
+        local sector = orbit_sectors[math.random(#orbit_sectors)]
+		table.insert(galaxies, _galaxy.new(position, orbit_sectors[sector]))
+		table.remove(orbit_sectors, sector)		
       end
 
     end
 
     function self.draw() --Draw the universe, draw each galaxy which in turn draws each system and so on...
-
+		love.graphics.circle("line", position.x, position.y, radius, 20)
         for i = 1, #galaxies, 1 do
           galaxies[i].draw()
         end

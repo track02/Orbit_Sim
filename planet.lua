@@ -3,33 +3,31 @@ local _vecops = require('vector_ops')
 local _orbitmanager = require('orbit_manager')
 local _satellite = require('satellite')
 
-  function planet.new(solar_system_center) --Orbits around center of solar system
+  function planet.new(solar_system_center, orbit_sector) --Orbits around center of solar system
 	
 	local solar_center = solar_system_center
     local self = {}
     local position = {x = solar_system_center.x + 12, y = solar_system_center.y + 12}
     local speed = 0.01
     local radius = 12   	
-    local orbitmanager =  _orbitmanager.new(solar_system_center, speed)
-	local initial_angle = orbitmanager.angle()
+    local orbitmanager =  _orbitmanager.new(radius, solar_system_center, speed, orbit_sector)
+
 	
 	--Setup satellites systems here--
 	local satellites = {}
 	local no_satellites = 1
+	local orbit_sectors = {0,1,2,3,4,5,6,7}
 	
 	for i = 1,no_satellites,1 do
-		table.insert(satellites, _satellite.new(position))
+		local sector = orbit_sectors[math.random(#orbit_sectors)]
+		table.insert(satellites, _satellite.new(position, orbit_sectors[sector]))
+		table.remove(orbit_sectors, sector)
 	end
 
     function self.draw()
-		love.graphics.setColor(255,255,255)
-		love.graphics.print(string.format("Planet: %i,%i", math.floor(position.x), math.floor(position.y)), 0,40)
-		--love.graphics.print(string.format("Received orbit: %i,%i", math.floor(solar_center.x), math.floor(solar_center.y)),200,40)
-		love.graphics.print(string.format("Initial Angle: %.4f", initial_angle ),110,40)
-
 		love.graphics.setColor(0,255,0)
 		orbitmanager.draw()
-		love.graphics.circle("line", position.x, position.y, radius, radius)
+		love.graphics.circle("line", position.x, position.y, radius, 15)
 		
 		--Draw Satellites here
 		for i = 1,#satellites,1 do

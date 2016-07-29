@@ -3,21 +3,24 @@ local _vecops = require('vector_ops')
 local _orbitmanager = require('orbit_manager')
 local _solar_system = require('solar_system')
 
-  function galaxy.new(universe_center) --Galaxies orbit around some center point of the universe
+  function galaxy.new(universe_center, orbit_sector) --Galaxies orbit around some center point of the universe, assigned a sector
 
     local self = {}
     local position = {x = universe_center.x + 50, y = universe_center.y + 50}
 	local orbit_point = universe_center --May want to update orbit_point
-    local speed = 0.0001
+    local speed = 0.001
     local radius = 50
-    local orbitmanager =  _orbitmanager.new(orbit_point, speed) --Pass this center point to orbit manager
+    local orbitmanager =  _orbitmanager.new(radius, orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 	
 	--Setup solar systems here--
 	local solar_systems = {}
 	local no_solar_systems = 1
+	local orbit_sectors = {0,1,2,3,4,5,6,7}
 	
 	for i = 1, no_solar_systems, 1 do
-		table.insert(solar_systems, _solar_system.new(position))
+		local sector = orbit_sectors[math.random(#orbit_sectors)]
+		table.insert(solar_systems, _solar_system.new(position, orbit_sectors[sector]))
+		table.remove(orbit_sectors, sector)
 	end
 		
 
@@ -26,7 +29,7 @@ local _solar_system = require('solar_system')
 		love.graphics.print(string.format("Galaxy: %i,%i", math.floor(position.x), math.floor(position.y)), 0,0)
 	  love.graphics.setColor(0,0,255)
       orbitmanager.draw()
-      love.graphics.circle("line", position.x, position.y, radius, 10)
+      love.graphics.circle("line", position.x, position.y, radius, 15)
       
       --Draw solar systems here--
       for i = 1,#solar_systems,1 do
