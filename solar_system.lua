@@ -18,7 +18,7 @@ local _planet = require('planet')
 	
 	for i = 1,no_planets,1 do
 		local sector = orbit_sectors[math.random(#orbit_sectors)]
-		table.insert(planets, _planet.new(position, orbit_sectors[sector]))
+		table.insert(planets, _planet.new(position, 0))
 		table.remove(orbit_sectors, sector)
 	end
 	  

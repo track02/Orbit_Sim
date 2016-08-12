@@ -19,7 +19,7 @@ local _solar_system = require('solar_system')
 	
 	for i = 1, no_solar_systems, 1 do
 		local sector = orbit_sectors[math.random(#orbit_sectors)]
-		table.insert(solar_systems, _solar_system.new(position, orbit_sectors[sector]))
+		table.insert(solar_systems, _solar_system.new(position, i))
 		table.remove(orbit_sectors, sector)
 	end
 		

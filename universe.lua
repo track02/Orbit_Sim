@@ -22,8 +22,8 @@ function universe.new()
     	
       for i = 1, no_galaxies, 1 do
         local sector = orbit_sectors[math.random(#orbit_sectors)]
-		table.insert(galaxies, _galaxy.new(position, orbit_sectors[sector]))
-		table.remove(orbit_sectors, sector)		
+        table.insert(galaxies, _galaxy.new(position, i))
+        table.remove(orbit_sectors, sector)		
       end
 
     end
