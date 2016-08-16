@@ -6,7 +6,7 @@ local _vecops = require('vector_ops')
 		self = {}
 
 		local orbit_point = orbit_point
-		local orbit_angle = angle_value * (math.pi / 4.0)
+		local orbit_angle = angle_value
 		local new_orbit_position = {x = 0, y = 0}
 		local orbit_speed = speed
 		
