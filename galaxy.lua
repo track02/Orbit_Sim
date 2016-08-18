@@ -9,8 +9,9 @@ local _solar_system = require('solar_system')
     local position = galaxy_position
     local orbit_point = universe_center --May want to update orbit_point
     local speed = 0.001
+    local init_angle = orbit_sector
     local radius = radius
-    local orbitmanager =  _orbitmanager.new(radius, orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
+    local orbitmanager =  _orbitmanager.new((position.x - universe_center.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 
 	--Setup solar systems here--
 	local solar_systems = {}
@@ -25,8 +26,8 @@ local _solar_system = require('solar_system')
 
 
     function self.draw()
-	  love.graphics.setColor(255,0,0)
-		love.graphics.print(string.format("Galaxy: %i,%i", math.floor(position.x), math.floor(position.y)), position.x,position.y)
+	love.graphics.setColor(255,0,0)
+	love.graphics.print(string.format("Galaxy: %i,%i // %f", math.floor(position.x), math.floor(position.y), init_angle), position.x,position.y)
 	  love.graphics.setColor(0,0,255)
       orbitmanager.draw()
       love.graphics.circle("line", position.x, position.y, radius, 15)

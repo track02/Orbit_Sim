@@ -11,10 +11,9 @@ function universe.new()
     local galaxies = {}
     local position = {x = 200, y = 200} --Center, galaxy rotation point
 	
-	local radius = 100
-
+	local radius =  200
 	--Build values
-	local no_galaxies = 3
+	local no_galaxies = 10
 	local orbit_sectors = {0,1,2,3,4,5,6,7}
 	
 	
@@ -27,42 +26,57 @@ function universe.new()
 --Determine the angle next galaxy will need to be rotated by in order to avoid overlap:
 --
 --
---	  [Distance from universe center to galaxy center]
+--	  [Distance from universe center to galaxy center] (b)
 --	           |
 --	           v
---	Ucenter o-----o Gcenter
---	         \    |
---	          \   |
---	           \  | <-- [Galaxy Radius + Radius of next Galaxy]
---                  \ |
---                   \|
---                    0 Gcenter + rad
+--	      Ucenter o-----------o Gcenter1
+--	               \ A     C /  
+--	                \       /
+--Ucenter to Gcenter2 -> \     /<-- [Galaxy Radius + Radius of next Galaxy] (a)
+--        (c)             \   /
+--                         \B/
+--                          0 Gcenter2 + Radius2 
 --
---       Angle should = atan (galaxy_radius + next_radius) / (galaxy.x - universe.x)
+--
+--	Not right angled as initially thought - use Cos Rule
+--	A = a^2 - b^2 - c^2 / -2bc
+
+
+	local galaxy_angles = {}
+	local galaxy_radii = {}
+	local galaxy_starts = {}
 
 
 	local galaxy_angle = 0
-	local galaxy_radius = 50 --Fix at 50 for testing
+	local galaxy_radius = math.random(25,50) --Fix at 50 for testing
 	
+	--Determine a galaxy position
+	local galaxy_position = {x = math.random(position.x + galaxy_radius, (position.x + radius - galaxy_radius)), y = position.y}
+
 
       for i = 1, no_galaxies, 1 do
-	
-	local next_galaxy_radius = 50 --Fix at 50 for testing
 
-	--Determine a galaxy position
-	local galaxy_position = {x = math.random((position.x + galaxy_radius),
-						((position.x + radius)-galaxy_radius)),
-				y = position.y}
+	
+	local next_galaxy_radius = math.random(25,50) --Fix at 50 for testing
+
+
+
+	local next_galaxy_position = {x = math.random(position.x + next_galaxy_radius, (position.x + radius - next_galaxy_radius)), y = position.y}
 
 	--Create a new galaxy using universe position, orbit angle, radius and galaxy position
         table.insert(galaxies, _galaxy.new(position, galaxy_angle, galaxy_radius, galaxy_position))
 
 	--Update angle for next galaxy
-	--atan returns angle in radians
-	galaxy_angle = galaxy_angle + math.atan((galaxy_radius) / (galaxy_position.x - position.x))
-				
+	--using cos rule
+	local a = galaxy_radius + next_galaxy_radius
+	local b = galaxy_position.x - position.x
+	local c = next_galaxy_position.x - position.x
+	
+	galaxy_angle = galaxy_angle + math.acos(((a*a) - (b*b) - (c*c)) / (-2 * b * c))
+
 	--Update radius for next galaxy
 	galaxy_radius = next_galaxy_radius
+	galaxy_position = next_galaxy_position
 
       end
 
