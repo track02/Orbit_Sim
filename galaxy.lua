@@ -1,5 +1,6 @@
 local galaxy = {}
 local _vecops = require('vector_ops')
+local _orbit_positioning = require('orbit_positioning')
 local _orbitmanager = require('orbit_manager')
 local _solar_system = require('solar_system')
 
@@ -13,17 +14,24 @@ local _solar_system = require('solar_system')
     local radius = radius
     local orbitmanager =  _orbitmanager.new((position.x - universe_center.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 
+	
 	--Setup solar systems here--
 	local solar_systems = {}
-	local no_solar_systems = 1
-	local orbit_sectors = {0,1,2,3,4,5,6,7}
+	local no_solar_systems = 3
+	local solar_sys_max_radius = 5
+	local solar_sys_max_padding = 0
+	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 	
---	for i = 1, no_solar_systems, 1 do
---		local sector = orbit_sectors[math.random(#orbit_sectors)]
---		table.insert(solar_systems, _solar_system.new(position, i+4))
---		table.remove(orbit_sectors, sector)
---	end
+	for i = 1, no_solar_systems, 1 do
 
+			new_solar_sys_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new solar system
+			
+			table.insert(solar_systems, _solar_system.new(position, 
+											   new_solar_sys_details.angle, 
+											   new_solar_sys_details.radius, 
+											   new_solar_sys_details.position))
+
+	end
 
     function self.draw()
 	love.graphics.setColor(255,0,0)
@@ -38,7 +46,6 @@ local _solar_system = require('solar_system')
       end
 
     end
-
 
     function self.update()
 
