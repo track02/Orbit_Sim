@@ -22,7 +22,9 @@ local orbit_positioning = {}
 		local padding_1 = 0
 		local padding_2 = 0
 		
-		local orbit_angle = 0
+		local orbit_angle = math.random(0, (2*math.pi))
+		local max_angle = 0
+		local orbit_angle_total = 0
 		
 		local first_pass = true
 		
@@ -30,7 +32,8 @@ local orbit_positioning = {}
     function self.find_next_orbit()
 	
 		local orbit_object = {position = {x = 0, y = 0}, radius = 0, angle = 0}
-	
+		
+			
 		--First pass, need to generate an initial position
 		if first_pass then
 		
@@ -58,6 +61,7 @@ local orbit_positioning = {}
 		if orbit_angle == 0  and first_pass then
 			
 			orbit_object.angle = 0
+			max_angle = (2*math.pi) - math.atan(radius_1 / (position_1.x - orbit_point.x)) --Determine a max angle so the last object cannot overlap the first
 					
 		--Otherwise calculate needed angle between current object and next
 		else
@@ -70,8 +74,17 @@ local orbit_positioning = {}
 			local a = radius_1 + radius_2 + padding_1 + padding_2
 			local b = position_1.x - orbit_point.x --Taking x distance - no change in y as objects rotated after placement
 			local c = position_2.x - orbit_point.x
+			
+			local next_angle = math.acos(((a*a) - (b*b) - (c*c)) / (-2 * b * c)) --Increment orbit_angle, keeping track of previously placed objects
 								
-			orbit_angle = orbit_angle + math.acos(((a*a) - (b*b) - (c*c)) / (-2 * b * c)) --Increment orbit_angle, keeping track of previously placed objects
+			orbit_angle = orbit_angle + next_angle
+			
+			if orbit_angle > (2 * math.pi) and orbit_angle_total < (2 * math.pi) then
+				orbit_angle = 0 + next_angle
+			end
+			
+			orbit_angle_total = orbit_angle_total + next_angle
+			
 		
 		end
 		
