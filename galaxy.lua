@@ -18,27 +18,27 @@ local _solar_system = require('solar_system')
 	--Setup solar systems here--
 	local solar_systems = {}
 	local no_solar_systems = 3
-	local solar_sys_max_radius = 5
-	local solar_sys_max_padding = 0
+	local solar_sys_max_radius = 25
+	local solar_sys_max_padding = 5
 	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 	
-	for i = 1, no_solar_systems, 1 do
+	while #solar_systems < no_solar_systems do
 
-			new_solar_sys_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new solar system
-			
-			table.insert(solar_systems, _solar_system.new(position, 
-											   new_solar_sys_details.angle, 
-											   new_solar_sys_details.radius, 
-											   new_solar_sys_details.position))
-
+		new_ss_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new solar system
+					
+		table.insert(solar_systems, _solar_system.new(position, 
+										   new_ss_details.angle, 
+										   new_ss_details.radius, 
+										   new_ss_details.position))
+		
 	end
 
     function self.draw()
 	love.graphics.setColor(255,0,0)
 	love.graphics.print(string.format("Galaxy: %i,%i // %f", math.floor(position.x), math.floor(position.y), init_angle), position.x,position.y)
-	  love.graphics.setColor(0,0,255)
-      orbitmanager.draw()
-      love.graphics.circle("line", position.x, position.y, radius, 15)
+	love.graphics.setColor(0,0,255)
+	orbitmanager.draw()
+	love.graphics.circle("line", position.x, position.y, radius, 15)
 
       --Draw solar systems here--
       for i = 1,#solar_systems,1 do

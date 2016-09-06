@@ -4,33 +4,33 @@ local _orbitmanager = require('orbit_manager')
 local _orbit_positioning = require('orbit_positioning')
 local _planet = require('planet')
 
-  function solar_system.new(galaxy_position, orbit_sector, radius, solsys_position) --Galaxy center - used for placement / orbit setup
+  function solar_system.new(galaxy_position, orbit_sector, radius, ss_position)
 
     local self = {}
-    local position = solsys_position
+    local position = ss_position
     local orbit_point = galaxy_position --May want to update orbit_point
     local speed = 0.01
     local init_angle = orbit_sector
     local radius = radius
-    local orbitmanager =  _orbitmanager.new((position.x - galaxy_position.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
+    local orbitmanager =  _orbitmanager.new((position.x - orbit_point.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 
 	
 	--Setup solar systems here--
 	local planets = {}
 	local no_planets = 3
-	local planet_max_radius = 5
-	local planet_max_padding = 0
+	local planet_max_radius = 10
+	local planet_max_padding = 3
 	local orbit_positioning = _orbit_positioning.new(position, radius, planet_max_radius, planet_max_padding)
 	
-	for i = 1, no_planets, 1 do
+	while #planets < no_planets do
 
-			new_planet_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new solar system
-			
-			--table.insert(planets, _planet.new(position, 
-			--								   new_planet_details.angle, 
-			--								   new_planet_details.radius, 
-			--								   new_planet_details.position))
-			--
+		new_planet_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new planet
+					
+		table.insert(planets, _planet.new(position, 
+										   new_planet_details.angle, 
+										   new_planet_details.radius, 
+										   new_planet_details.position))
+		
 	end
 	  
 

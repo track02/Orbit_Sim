@@ -1,27 +1,36 @@
 local planet = {}
 local _vecops = require('vector_ops')
 local _orbitmanager = require('orbit_manager')
+local _orbit_positioning = require('orbit_positioning')
 local _satellite = require('satellite')
 
-  function planet.new(solar_system_center, orbit_sector) --Orbits around center of solar system
+  function planet.new(ss_position, orbit_sector, radius, planet_position) --Orbits around center of solar system
 	
-	local solar_center = solar_system_center
     local self = {}
-    local position = {x = solar_system_center.x + 12, y = solar_system_center.y + 12}
+    local position = planet_position
+    local orbit_point = ss_position --May want to update orbit_point
     local speed = 0.01
-    local radius = 12   	
-    local orbitmanager =  _orbitmanager.new(radius, solar_system_center, speed, orbit_sector)
+    local init_angle = orbit_sector
+    local radius = radius
+    local orbitmanager =  _orbitmanager.new((position.x - orbit_point.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 
 	
 	--Setup satellites systems here--
 	local satellites = {}
-	local no_satellites = 1
-	local orbit_sectors = {0,1,2,3,4,5,6,7}
+	local no_satellites = 3
+	local satellite_max_radius = 3
+	local satellite_max_padding = 3
+	local orbit_positioning = _orbit_positioning.new(position, radius, satellite_max_radius, satellite_max_padding)
 	
-	for i = 1,no_satellites,1 do
-		local sector = orbit_sectors[math.random(#orbit_sectors)]
-		table.insert(satellites, _satellite.new(position, i))
-		table.remove(orbit_sectors, sector)
+	while #satellites < no_satellites do
+
+		new_sat_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new planet
+					
+		table.insert(satellites, _satellite.new(position, 
+										   new_sat_details.angle, 
+										   new_sat_details.radius, 
+										   new_sat_details.position))
+		
 	end
 
     function self.draw()
