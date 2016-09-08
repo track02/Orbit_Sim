@@ -15,9 +15,10 @@ function universe.new()
 	local radius =  200
 	
 	--Build values
-	local no_galaxies = 5
-	local max_galaxy_radius = 50
-	local max_galaxy_padding = 30 --Buffer space between galaxies 
+	local no_galaxies = 10
+	local max_galaxy_radius = 25
+	local max_galaxy_padding = 15 --Buffer space between galaxies 
+	local max_galaxy_speed = 0.0000000000000005
 	local orbit_positioning = _orbit_positioning.new(position, radius, max_galaxy_radius,max_galaxy_padding)
 	local build_ok = true
 	
@@ -31,7 +32,6 @@ function universe.new()
 											   new_galaxy_details.angle, 
 											   new_galaxy_details.radius, 
 											   new_galaxy_details.position))
-			
 		end
 	end
 

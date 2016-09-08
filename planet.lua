@@ -9,7 +9,7 @@ local _satellite = require('satellite')
     local self = {}
     local position = planet_position
     local orbit_point = ss_position --May want to update orbit_point
-    local speed = 0.01
+    local speed = 0.001
     local init_angle = orbit_sector
     local radius = radius
     local orbitmanager =  _orbitmanager.new((position.x - orbit_point.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
@@ -20,6 +20,7 @@ local _satellite = require('satellite')
 	local no_satellites = 3
 	local satellite_max_radius = 3
 	local satellite_max_padding = 3
+	local satellite_max_speed = 15
 	local orbit_positioning = _orbit_positioning.new(position, radius, satellite_max_radius, satellite_max_padding)
 	
 	while #satellites < no_satellites do
@@ -29,7 +30,8 @@ local _satellite = require('satellite')
 		table.insert(satellites, _satellite.new(position, 
 										   new_sat_details.angle, 
 										   new_sat_details.radius, 
-										   new_sat_details.position))
+										   new_sat_details.position,
+										   1))
 		
 	end
 

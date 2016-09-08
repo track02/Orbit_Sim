@@ -9,17 +9,17 @@ local _solar_system = require('solar_system')
     local self = {}
     local position = galaxy_position
     local orbit_point = universe_center --May want to update orbit_point
-    local speed = 0.001
+    local speed = math.random(1, 5) / 100
     local init_angle = orbit_sector
     local radius = radius
     local orbitmanager =  _orbitmanager.new((position.x - universe_center.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
-
 	
 	--Setup solar systems here--
 	local solar_systems = {}
 	local no_solar_systems = 3
-	local solar_sys_max_radius = 25
+	local solar_sys_max_radius = 10
 	local solar_sys_max_padding = 5
+	local solar_sys_max_speed = 5
 	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 	
 	while #solar_systems < no_solar_systems do
@@ -30,7 +30,6 @@ local _solar_system = require('solar_system')
 										   new_ss_details.angle, 
 										   new_ss_details.radius, 
 										   new_ss_details.position))
-		
 	end
 
     function self.draw()
