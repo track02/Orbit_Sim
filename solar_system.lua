@@ -9,7 +9,7 @@ local _planet = require('planet')
     local self = {}
     local position = ss_position
     local orbit_point = galaxy_position --May want to update orbit_point
-    local speed = 0.1
+    local speed = math.random(1, 5) / 100
     local init_angle = orbit_sector
     local radius = radius
     local orbitmanager =  _orbitmanager.new((position.x - orbit_point.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
@@ -17,21 +17,20 @@ local _planet = require('planet')
 	
 	--Setup solar systems here--
 	local planets = {}
-	local no_planets = 3
-	local planet_max_radius = 2
+	local max_planets = 0
+	local planet_max_radius = radius / max_planets
 	local planet_max_padding = 3
 	local planet_max_speed = 10
 	local orbit_positioning = _orbit_positioning.new(position, radius, planet_max_radius, planet_max_padding)
 	
-	while #planets < no_planets do
+	for i = 1, max_planets, 1 do
 
 		new_planet_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new planet
-					
-		table.insert(planets, _planet.new(position, 
-										   new_planet_details.angle, 
-										   new_planet_details.radius, 
-										   new_planet_details.position))
-		
+				
+			table.insert(planets, _planet.new(position, 
+											   new_planet_details.angle, 
+											   new_planet_details.radius, 
+											   new_planet_details.position))
 	end
 	  
 

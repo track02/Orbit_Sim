@@ -45,7 +45,7 @@ local orbit_positioning = {}
 	
     function self.find_next_orbit()
 	
-		local orbit_object = {position = {x = 0, y = 0}, radius = 0, angle = 0}
+		local orbit_object = {position = {x = 0, y = 0}, radius = 0, angle = 0, valid = true}
 		
 			
 		--First pass, need to generate an initial position
@@ -64,9 +64,12 @@ local orbit_positioning = {}
 		--Set return position / radius
 		orbit_object.position = position_1
 		orbit_object.radius = radius_1
+		orbit_object.valid = true
 			
 		--Generate next position
 		radius_2 = math.random(min_radius,max_radius) 
+		
+		
 		position_2 = {x = starting_adjustment + radius_2 + padding_1, y = orbit_point.y}
 		padding_2 = math.random(0, max_padding)
 									 
@@ -76,8 +79,7 @@ local orbit_positioning = {}
 		if orbit_angle == 0  and first_pass then
 			
 			orbit_object.angle = 0
-			max_angle = (2*math.pi) - math.atan(radius_1 / (position_1.x - orbit_point.x)) --Determine a max angle so the last object cannot overlap the first
-					
+			
 		--Otherwise calculate needed angle between current object and next
 		else
 		
@@ -104,8 +106,7 @@ local orbit_positioning = {}
 		--Update current object to next
 		radius_1 = radius_2
 		position_1 = position_2
-		padding_1 = padding_2
-		
+		padding_1 = padding_2		
 		
 		
 		return orbit_object		

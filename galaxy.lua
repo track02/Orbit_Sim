@@ -16,20 +16,21 @@ local _solar_system = require('solar_system')
 	
 	--Setup solar systems here--
 	local solar_systems = {}
-	local no_solar_systems = 3
-	local solar_sys_max_radius = 10
+	local max_solar_systems = 5
+	local solar_sys_max_radius = radius / max_solar_systems
 	local solar_sys_max_padding = 5
 	local solar_sys_max_speed = 5
 	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 	
-	while #solar_systems < no_solar_systems do
+	for i = 1, max_solar_systems, 1  do
 
 		new_ss_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new solar system
-					
-		table.insert(solar_systems, _solar_system.new(position, 
-										   new_ss_details.angle, 
-										   new_ss_details.radius, 
-										   new_ss_details.position))
+
+			table.insert(solar_systems, _solar_system.new(position, 
+											   new_ss_details.angle, 
+											   new_ss_details.radius, 
+											   new_ss_details.position))
+
 	end
 
     function self.draw()
