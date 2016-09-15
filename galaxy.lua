@@ -34,9 +34,6 @@ local _solar_system = require('solar_system')
 	end
 
     function self.draw()
-	love.graphics.setColor(255,0,0)
-	love.graphics.print(string.format("Galaxy: %i,%i // %f", math.floor(position.x), math.floor(position.y), init_angle), position.x,position.y)
-	love.graphics.setColor(0,0,255)
 	orbitmanager.draw()
 	love.graphics.circle("line", position.x, position.y, radius, 15)
 

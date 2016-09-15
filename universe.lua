@@ -12,12 +12,12 @@ function universe.new()
     local galaxies = {}
     local position = {x = 200, y = 200} --Center, galaxy rotation point
 	
-	local radius =  200
+	local radius =  math.random(10000,20000)
 	
 	--Build values
-	local max_galaxies = 10
-	local max_galaxy_radius = radius / max_galaxies
+	local max_galaxies = 100
 	local max_galaxy_padding = 15 --Buffer space between galaxies 
+	local max_galaxy_radius = (radius - (max_galaxy_padding * max_galaxies)) / max_galaxies
 	local max_galaxy_speed = 0.0000000000000005
 	local orbit_positioning = _orbit_positioning.new(position, radius, max_galaxy_radius,max_galaxy_padding)
 	local build_ok = true
@@ -28,18 +28,24 @@ function universe.new()
 
 			new_galaxy_details = orbit_positioning.find_next_orbit() --Returns values needed to construct new galaxy
 					
-				table.insert(galaxies, _galaxy.new(position, 
+				galaxies[i] = _galaxy.new(position, 
 												   new_galaxy_details.angle, 
 												   new_galaxy_details.radius, 
-												   new_galaxy_details.position))
+												   new_galaxy_details.position)
+												   
+			print(i .. "\n"
+				  .. new_galaxy_details.position.x .. "," .. new_galaxy_details.position.y .. "\n")
+			
 		end
 	end
 
     function self.draw() --Draw the universe, draw each galaxy which in turn draws each system and so on...
 		love.graphics.circle("line", position.x, position.y, radius, 20)
+		
         for i = 1, #galaxies, 1 do
-          galaxies[i].draw()
-        end
+			galaxies[i].draw()
+		end
+
     end
     
     function self.update() --Update the universe, for now orbital movements
