@@ -6,6 +6,15 @@ local offset = {x = 0, y = 0}
 local offset_sum = {x = 0, y = 0}
 local translate = false
 
+--~    	universe = _u.new()
+--~  	universe.build()
+
+--~ 	for i = 1, 10, 1 do
+--~ 		print("Update: " .. i)
+--~ 		universe.update()
+--~ 	end
+
+
 function love.conf(t)
 
 	t.window.width = 400
@@ -44,8 +53,8 @@ end
 function love.mousepressed(x, y, buttons, istouch)
 
 	m_start.x = x
-	m_start.y = y	
-	
+	m_start.y = y
+
 	translate = true
 end
 
@@ -55,9 +64,9 @@ function love.mousereleased(x, y, buttons, istouch)
 	offset_sum.y = offset_sum.y + offset.y
 	offset.x = 0
 	offset.y = 0
-	
+
 	translate = false
-	
+
 end
 
 
@@ -66,11 +75,11 @@ function love.mousemoved(x,y,dx,dy)
 	if translate then
 		m_end.x = x
 		m_end.y = y
-	
+
 		offset.x = m_end.x - m_start.x
 		offset.y = m_end.y - m_start.y
 	end
-		
+
 end
 
 function love.draw()
@@ -81,14 +90,14 @@ function love.draw()
 	  love.graphics.translate(offset.x + offset_sum.x, offset.y + offset_sum.y)
 	  universe.draw()
   love.graphics.pop()
-  
+
 
   love.graphics.print(offset.x, 150,75)
   love.graphics.print(offset.y, 150,100)
-  
+
   love.graphics.print(offset_sum.x, 190,75)
   love.graphics.print(offset_sum.y, 190,100)
-  
-  
+
+
 end
 
