@@ -12,7 +12,7 @@ function universe.new()
     local galaxies = {}
     local position = {x = 200, y = 200} --Center, galaxy rotation point
 
-	local radius =  math.random(200,200)
+	local radius =  math.random(500,750)
 
 	--Build values
 	local max_galaxies = 5

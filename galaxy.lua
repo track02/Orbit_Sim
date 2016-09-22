@@ -17,7 +17,7 @@ local _solar_system = require('solar_system')
 	--Setup solar systems here--
 	local solar_systems = {}
 	local max_solar_systems = 5
-	local solar_sys_max_padding = 5
+	local solar_sys_max_padding = 1
 	local solar_sys_max_radius = (radius - (solar_sys_max_padding * max_solar_systems)) / max_solar_systems
 	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 

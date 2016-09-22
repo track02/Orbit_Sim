@@ -17,9 +17,9 @@ local _planet = require('planet')
 
 	--Setup solar systems here--
 	local planets = {}
-	local max_planets = 0
-	local planet_max_radius = radius / max_planets
-	local planet_max_padding = 3
+	local max_planets = 5
+	local planet_max_padding = 1
+	local planet_max_radius = (radius - (planet_max_padding * max_planets)) / max_planets
 	local planet_max_speed = 10
 	local orbit_positioning = _orbit_positioning.new(position, radius, planet_max_radius, planet_max_padding)
 
