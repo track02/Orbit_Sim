@@ -12,12 +12,12 @@ function universe.new()
     local galaxies = {}
     local position = {x = 200, y = 200} --Center, galaxy rotation point
 
-	local radius =  math.random(500,750)
+	local radius =  math.random(1500,3000)
 
 	--Build values
 	local max_galaxies = 5
 	local max_galaxy_padding = 15 --Buffer space between galaxies
-	local max_galaxy_radius = (radius - (max_galaxy_padding * max_galaxies)) / max_galaxies
+	local max_galaxy_radius = ((radius - (max_galaxy_padding * max_galaxies)) / max_galaxies) / 2
 	local max_galaxy_speed = 0.0000000000000005
 	local orbit_positioning = _orbit_positioning.new(position, radius, max_galaxy_radius,max_galaxy_padding) --Tables passed by ref in Lua
 	local build_ok = true

@@ -16,9 +16,9 @@ local _solar_system = require('solar_system')
 
 	--Setup solar systems here--
 	local solar_systems = {}
-	local max_solar_systems = 5
-	local solar_sys_max_padding = 1
-	local solar_sys_max_radius = (radius - (solar_sys_max_padding * max_solar_systems)) / max_solar_systems
+	local max_solar_systems = 4
+	local solar_sys_max_padding = 3
+	local solar_sys_max_radius = ((radius - (solar_sys_max_padding * max_solar_systems)) / max_solar_systems) / 2
 	local orbit_positioning = _orbit_positioning.new(position, radius, solar_sys_max_radius,solar_sys_max_padding)
 
 	for i = 1, max_solar_systems, 1  do
@@ -33,7 +33,8 @@ local _solar_system = require('solar_system')
 
     function self.draw()
 	--print("Drawing at: " .. position.x .. "," .. position.y)
-	orbitmanager.draw()
+	--orbitmanager.draw()
+	love.graphics.setColor(255,0,0)
 	love.graphics.circle("line", position.x, position.y, radius, 15)
 
       --Draw solar systems here--

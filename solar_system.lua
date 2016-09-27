@@ -14,12 +14,11 @@ local _planet = require('planet')
     local radius = radius
     local orbitmanager =  _orbitmanager.new((position.x - orbit_point.x), orbit_point, speed, orbit_sector) --Pass this center point to orbit manager
 
-
 	--Setup solar systems here--
 	local planets = {}
-	local max_planets = 5
+	local max_planets = 4
 	local planet_max_padding = 1
-	local planet_max_radius = (radius - (planet_max_padding * max_planets)) / max_planets
+	local planet_max_radius = ((radius - (planet_max_padding * max_planets)) / max_planets) / 2
 	local planet_max_speed = 10
 	local orbit_positioning = _orbit_positioning.new(position, radius, planet_max_radius, planet_max_padding)
 
@@ -36,9 +35,6 @@ local _planet = require('planet')
 
     function self.draw()
 		love.graphics.setColor(255,255,255)
-		love.graphics.print(string.format("System: %i,%i", math.floor(position.x), math.floor(position.y)), 0,20)
-		love.graphics.setColor(255,0,0)
-		orbitmanager.draw()
 		love.graphics.circle("line", position.x, position.y, radius, 15)
 
 		--Draw solar systems here--

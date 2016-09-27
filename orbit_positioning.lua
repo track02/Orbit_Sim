@@ -32,7 +32,7 @@ local orbit_positioning = {}
 		local orbit_object = {position = {x = 0, y = 0}, radius = 0, angle = 0}
 
  			padding = math.random(0, max_padding)
- 			orbit_object.radius = math.random(min_radius,max_radius)
+ 			orbit_object.radius = math.random(max_radius,max_radius)
  			orbit_object.position = {x = start_point.x + orbit_object.radius + padding, y = start_point.y}
 			orbit_object.angle = math.random(0, (2*math.pi))
 			start_point.x = orbit_object.position.x + orbit_object.radius

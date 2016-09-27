@@ -91,13 +91,5 @@ function love.draw()
 	  universe.draw()
   love.graphics.pop()
 
-
-  love.graphics.print(offset.x, 150,75)
-  love.graphics.print(offset.y, 150,100)
-
-  love.graphics.print(offset_sum.x, 190,75)
-  love.graphics.print(offset_sum.y, 190,100)
-
-
 end
 

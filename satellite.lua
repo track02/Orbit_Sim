@@ -15,7 +15,7 @@ local _orbitmanager = require('orbit_manager')
 
     function self.draw()
 	
-		orbitmanager.draw()
+		love.graphics.setColor(125,0,125)
 		love.graphics.circle("line", position.x, position.y, radius, 5)
 
     end

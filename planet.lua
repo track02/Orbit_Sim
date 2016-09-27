@@ -17,9 +17,9 @@ local _satellite = require('satellite')
 	
 	--Setup satellites systems here--
 	local satellites = {}
-	local max_satellites = 3
+	local max_satellites = 2
 	local satellite_max_padding = 1
-	local satellite_max_radius = (radius - (satellite_max_padding * max_satellites)) / max_satellites
+	local satellite_max_radius = ((radius - (satellite_max_padding * max_satellites)) / max_satellites) / 2
 	local satellite_max_speed = 15
 	local orbit_positioning = _orbit_positioning.new(position, radius, satellite_max_radius, satellite_max_padding)
 	
@@ -36,8 +36,8 @@ local _satellite = require('satellite')
 	end
 
     function self.draw()
-		love.graphics.setColor(0,255,0)
-		orbitmanager.draw()
+		love.graphics.setColor(0,0,255)
+		--orbitmanager.draw()
 		love.graphics.circle("line", position.x, position.y, radius, 15)
 		
 		--Draw Satellites here
