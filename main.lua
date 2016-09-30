@@ -6,13 +6,6 @@ local offset = {x = 0, y = 0}
 local offset_sum = {x = 0, y = 0}
 local translate = false
 
---~    	universe = _u.new()
---~  	universe.build()
-
---~ 	for i = 1, 10, 1 do
---~ 		print("Update: " .. i)
---~ 		universe.update()
---~ 	end
 
 
 function love.conf(t)
