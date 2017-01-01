@@ -10,12 +10,12 @@ This effect carries through to the children of children, e.g. a galaxy will orbi
 
 ![Image_1](https://github.com/track02/Orbit_Sim/blob/master/1.png)
 
-Universe
+  Universe
 
 ![Image_2](https://github.com/track02/Orbit_Sim/blob/master/2.png)
 
-Galaxy
+  Galaxy
 
 ![Image_3](https://github.com/track02/Orbit_Sim/blob/master/3.png)
 
-Solar System
+  Solar System
