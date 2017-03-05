@@ -6,8 +6,6 @@ local offset = {x = 0, y = 0}
 local offset_sum = {x = 0, y = 0}
 local translate = false
 
-
-
 function love.conf(t)
 
 	t.window.width = 400
@@ -28,7 +26,6 @@ end
 function love.update(dt)
     universe.update()
 end
-
 
 function love.keypressed(key, isrepeat)
 
@@ -59,7 +56,6 @@ function love.mousereleased(x, y, buttons, istouch)
 	offset.y = 0
 
 	translate = false
-
 end
 
 
@@ -77,12 +73,9 @@ end
 
 function love.draw()
 
-
   love.graphics.push()
 	  love.graphics.scale(scale,scale)
 	  love.graphics.translate(offset.x + offset_sum.x, offset.y + offset_sum.y)
 	  universe.draw()
   love.graphics.pop()
-
 end
-
